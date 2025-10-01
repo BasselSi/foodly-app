@@ -1,0 +1,26 @@
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+      - foodly_logs:/app/logs
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: foodlydb
+      POSTGRES_USER: foodlyuser
+      POSTGRES_PASSWORD: foodlypass
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
+  foodly_logs:
+
